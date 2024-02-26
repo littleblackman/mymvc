@@ -1,0 +1,1 @@
+<?php echo $age;?> sur la page demo

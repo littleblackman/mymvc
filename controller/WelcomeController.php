@@ -1,35 +1,24 @@
 <?php
-require_once(ROOT.'/model/bdd_functions.php');
 
-class WelcomeController {
+class WelcomeController extends Controller
+{
 
-    public function hello($params = [])
+
+    public function hello()
     {
-
-        echo 'yes'; exit;
-
-        ob_start()
-        ;?>
-        <h1>Hello accueil</h1>
-
-        <?php
-        $htmlContent = ob_get_clean();
-        include (VIEW.'/layout/base.php');
+        $name = 'toto';
+         return $this->render('pages/hello', ['name' => $name, 'age' => 25]);
     }
 
-    public function show($params = []) {
+    public function show()
+    {
+        $names = ['toto', 'tata', 'titi'];
+        $this->render('pages/show', ['names' => $names]);
+    }
 
-        $users = getUsers();
+    public function update()
+    {
 
-        $names = [];
-        foreach($users as $user) {
-            $names[] = $user['id'].' '.strtoupper($user['email']);
-        }
-
-        ob_start();
-        include(VIEW.'/pages/show.php');
-        $htmlContent = ob_get_clean();
-        include(VIEW.'/layout/base.php');
     }
     
 }

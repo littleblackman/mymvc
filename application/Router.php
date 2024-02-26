@@ -1,7 +1,5 @@
 <?php
 
-require_once(CONTROLLER.'/WelcomeController.php');
-
 /**
  * Class Router
  * Nomenclature des routes
@@ -16,6 +14,7 @@ class Router {
     private $routes = [
         'hello' => ['controller' => 'WelcomeController', 'method' => 'hello', 'params' => ['id', 'date']],
         'show' => ['controller' => 'WelcomeController', 'method' => 'show'],
+        'demo' => ['controller' => 'DemoController', 'method' => 'demo'],
     ];
 
     private $params = [];
@@ -60,10 +59,8 @@ class Router {
             }
 
         }
-
         // faire la même chose pour les params en POST
-
-       return $params;
+        return $params;
     }
 
     public function render()
@@ -78,8 +75,13 @@ class Router {
         $method = $this->routes[$this->route]['method'];
         $params = $this->params;
 
-        $controller = new $controller();
-        $controller->$method($params);
+        $controller = new $controller($params);
+        // check if method exists
+        if(!method_exists($controller, $method)) {
+            echo '404';
+            exit;
+        }
+        $controller->$method();
 
     }
 
