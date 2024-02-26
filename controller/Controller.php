@@ -14,6 +14,19 @@ class Controller
 
     public function render($view, $datas = [])
     {
-        $this->view->render($view, $datas);
+        $this->view->setDatas($datas);
+        $this->view->render($view);
+    }
+
+    public function renderJson($datas = [])
+    {
+        $this->view->setDatas($datas);
+        $this->view->renderJson();
+    }
+
+    public function renderHtml($view, $datas = [])
+    {
+        $this->view->setDatas($datas);
+        $this->view->renderHtml($view);
     }
 }

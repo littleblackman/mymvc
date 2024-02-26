@@ -3,9 +3,17 @@
 
 class FrontView
 {
-    public function render($view, $datas = [])
+    private $datas = [];
+
+
+    public function setDatas($datas)
     {
-        foreach($datas as $key => $value) {
+        $this->datas = $datas;
+    }
+
+    public function render($view)
+    {
+        foreach($this->datas as $key => $value) {
            $$key = $value;
         }
 
@@ -15,13 +23,17 @@ class FrontView
         include(VIEW.'/layout/base.php');
     }
 
-    public function renderJson($datas)
+    public function renderJson()
     {
-        echo json_encode($datas);
+        echo json_encode($this->datas);
     }
 
-    public function renderHtml($view, $datas = [])
+    public function renderHtml($view)
     {
+        foreach($this->datas as $key => $value) {
+            $$key = $value;
+        }
+        
         include(VIEW.'/'.$view.'.php');
     }
 }
